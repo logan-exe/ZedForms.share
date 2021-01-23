@@ -1,0 +1,140 @@
+.work-area {
+  /* position: fixed;
+  left: 0px;
+  right: 0px; */
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  /* overflow: hidden; */
+  width: auto;
+  height: 100%;
+  /* margin-top: 40px; */
+  margin-right: auto;
+  /* margin-bottom: 40px; */
+  z-index: -1;
+  /* margin-left: 339px; */
+  /* padding-top: 24px; */
+  padding-right: 32px;
+  padding-left: 32px;
+  padding-bottom: 24px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  /* background-color: #f9f9f9; */
+}
+
+.textbox-wrapper {
+  position: relative;
+  display: block;
+  width: auto;
+  height: auto;
+  padding: 32px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #dadce0;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.textbox-wrapper:hover {
+  display: block;
+  border-width: 1px;
+  border-color: #dadce0;
+  background-color: #fff;
+  box-shadow: 1px 1px 11px 0 #dadce0;
+  cursor: move;
+}
+
+.textbox-title {
+  margin-bottom: 16px;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.textbox-description {
+  margin-bottom: 24px;
+  font-family: "Poppins", sans-serif;
+  color: #9393b0;
+  font-weight: 400;
+  font-size: 14px;
+}
+.textbox-input {
+  width: 812px;
+  /* height: 106px; */
+  padding-top: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  /* padding-bottom: 106px; */
+  background: #ffffff;
+  border: 1px solid #dadce0;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+/* .delete-button {
+  margin-left: 10px;
+  margin-right: 10px;
+   line-height: 20px;
+} */
+
+@media screen and (min-width: 1280px) {
+  .body {
+    background-color: #f9f9f9;
+  }
+
+  .textbox-wrapper {
+    width: 876px;
+    padding: 32px;
+  }
+
+  .textbox-title {
+    color: #121242;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .textbox-wrapper {
+    width: 1000px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .work-area {
+    margin-top: 120px;
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .work-area {
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+}

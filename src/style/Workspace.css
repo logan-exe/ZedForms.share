@@ -1,0 +1,50 @@
+.workSpace-contain {
+  display: flex;
+  flex-direction: row;
+}
+.main-contain {
+  display: flex;
+  margin-top: 64px;
+  height: 100vh;
+  width: 100vw;
+}
+.quickAccess-contain {
+  position: fixed;
+  height: 100vh;
+
+  z-index: 1;
+}
+.componentList-contain {
+  /* z-index: 1; */
+  /* height: 100%; */
+}
+
+.formspace-contain {
+  margin-left: 339px;
+  width: 100%;
+  /* height: auto; */
+  /* background-color: #555;
+  z-index: 5;
+  background-repeat: repeat-y; */
+}
+
+/* width */
+.componentList-contain ::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.componentList-contain::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.componentList-contain ::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.componentList-contain ::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

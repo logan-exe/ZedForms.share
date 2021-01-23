@@ -1,0 +1,179 @@
+.work-area {
+  /* position: fixed;
+  left: 0px;
+  right: 0px; */
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  /* overflow: hidden; */
+  width: auto;
+  height: 100%;
+  /* margin-top: 40px; */
+  margin-right: auto;
+  /* margin-bottom: 40px; */
+  z-index: -1;
+  /* margin-left: 339px; */
+  /* padding-top: 24px; */
+  padding-right: 32px;
+  padding-left: 32px;
+  padding-bottom: 24px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  /* background-color: #f9f9f9; */
+}
+
+.calendar-component {
+  position: static;
+  display: block;
+  width: auto;
+  height: auto;
+  margin-bottom: 24px;
+  padding: 32px;
+  /* margin-left: 32px; */
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #dadce0;
+  border-radius: 8px;
+  background-color: #fff;
+  cursor: move;
+}
+
+.calendar-component:hover {
+  display: block;
+  border-width: 1px;
+  border-color: #dadce0;
+  background-color: #fff;
+  box-shadow: 1px 1px 11px 0 #dadce0;
+}
+
+.calendar-title {
+  margin-bottom: 16px;
+  font-family: Poppins, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.calendar-description {
+  margin-bottom: 24px;
+  font-family: Poppins, sans-serif;
+  color: #9393b0;
+  font-weight: 400;
+}
+
+.delete-button {
+  position: static;
+  right: 32px;
+  bottom: 32px;
+  z-index: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: auto;
+  height: 32px;
+  margin-left: 16px;
+  padding: 6px 16px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: 1px solid #121242;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  box-shadow: 0 0 8px 0 #dadce0;
+}
+
+.calendar-wrapper {
+  /* display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 80px;
+  margin-bottom: 16px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  background-color: #f1f1f1; */
+}
+
+.calendar-icon-text-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 212px;
+  height: 48px;
+  padding-right: 24px;
+  padding-left: 24px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+@media screen and (min-width: 1280px) {
+  .body {
+    background-color: #f9f9f9;
+  }
+
+  .calendar-component {
+    width: 876px;
+    padding: 32px;
+    cursor: move;
+  }
+
+  .calendar-title {
+    color: #121242;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .calendar-component {
+    width: 1000px;
+  }
+}
