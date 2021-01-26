@@ -8,6 +8,7 @@ import FormTitle from "./Components/main/FormTitle";
 import "./app.css";
 import DragandDrop from "./Components/DragandDrop";
 import Dnd from "./Components/Dnd";
+import MySwitch from "./Components/Utils/MySwitch";
 
 export default function App() {
   const counter = useSelector((state) => state.counter);
@@ -21,7 +22,7 @@ export default function App() {
           <Workspace></Workspace>
         </Route>
         <Route path="/test">
-          <Dnd />
+          <MySwitch />
         </Route>
       </div>
     </Router>

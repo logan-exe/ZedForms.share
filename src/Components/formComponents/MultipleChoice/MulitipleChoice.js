@@ -1,9 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./MultipleChoice.css";
 import ThreeButtons from "../ThreeButtons";
+import { Radio } from "@material-ui/core";
+import { formList, prevListSetter } from "../../../actions";
+import { useSelector, useDispatch } from "react-redux";
 
 function MulitipleChoice({ id }) {
   const [isDisplay, setIsDisplay] = useState("none");
+  const [label, setLabel] = useState("");
+  const [desc, setDesc] = useState("");
+
+  const [isRequired, setIsRequired] = useState("No");
+
+  const [type, setType] = useState("checkbox");
+  const [optList, setOptList] = useState([]);
+  const myformList = useSelector((state) => state.formList);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log(myformList);
+    var a = myformList.find((item) => item.id === id);
+    setLabel(a.label);
+    setDesc(a.description);
+    setIsRequired(a.isRequired);
+    setOptList(a.inputs);
+  }, [myformList]);
 
   // const handleMouseOver = () => {
   //   console.log("hello world");
@@ -21,117 +42,43 @@ function MulitipleChoice({ id }) {
           onMouseLeave={() => setIsDisplay("none")}
         >
           <div className="radio-component-title">
-            How was your experience in the following areas of our customer
-            service?
+            {`${label}`}
+            {isRequired ? <span style={{ color: "#ff0000" }}>*</span> : ""}
           </div>
-          <div className="radio-component-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. At
-            volutpat, accumsan, ipsum gravida aliquam, velit non. Sit dictumst
-            ullamcorper ultrices adipiscing adipiscing. Sed turpis egestas morbi
-            pharetra sed id sit.
-          </div>
-          <div className="radio-component-choice">
+
+          <div className="radio-component-description">{`${desc}`}</div>
+          {/* <div className="radio-component-choice">
             <div className="radio-icon">
               <div className="radio-icon-svg w-embed">
-                <svg
-                  width={20}
-                  height={20}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3ZM2 10C2 5.58172 5.58172 2 10 2C14.4183 2 18 5.58172 18 10C18 14.4183 14.4183 18 10 18C5.58172 18 2 14.4183 2 10Z"
-                    fill="#121242"
-                  />
-                </svg>
+                <input
+                  type="checkbox"
+                  value="hello"
+                  checked={isRequired === "No"}
+                ></input>
               </div>
             </div>
             <div className="radio-component-choice-text">Very satisfied</div>
-          </div>
-          <div className="radio-component-choice">
-            <div className="radio-icon">
-              <div className="radio-icon-svg w-embed">
-                <svg
-                  width={20}
-                  height={20}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3ZM2 10C2 5.58172 5.58172 2 10 2C14.4183 2 18 5.58172 18 10C18 14.4183 14.4183 18 10 18C5.58172 18 2 14.4183 2 10Z"
-                    fill="#121242"
-                  />
-                </svg>
+          </div> */}
+          {optList.map((item) => {
+            return (
+              <div className="radio-component-choice">
+                <div className="radio-icon">
+                  <div className="radio-icon-svg w-embed">
+                    <input
+                      type="checkbox"
+                      value="hello"
+                      // checked={isRequired === "No"}
+                    ></input>
+                  </div>
+                </div>
+                <div className="radio-component-choice-text">{item.option}</div>
               </div>
-            </div>
-            <div className="radio-component-choice-text">
-              Somewhat satisfied
-            </div>
-          </div>
-          <div className="radio-component-choice">
-            <div className="radio-icon">
-              <div className="radio-icon-svg w-embed">
-                <svg
-                  width={20}
-                  height={20}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3ZM2 10C2 5.58172 5.58172 2 10 2C14.4183 2 18 5.58172 18 10C18 14.4183 14.4183 18 10 18C5.58172 18 2 14.4183 2 10Z"
-                    fill="#121242"
-                  />
-                </svg>
-              </div>
-            </div>
-            <div className="radio-component-choice-text">
-              Somewhat dissatisfied
-            </div>
-          </div>
-          <div className="radio-component-choice">
-            <div className="radio-icon">
-              <div className="radio-icon-svg w-embed">
-                <svg
-                  width={20}
-                  height={20}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3ZM2 10C2 5.58172 5.58172 2 10 2C14.4183 2 18 5.58172 18 10C18 14.4183 14.4183 18 10 18C5.58172 18 2 14.4183 2 10Z"
-                    fill="#121242"
-                  />
-                </svg>
-              </div>
-            </div>
-            <div className="radio-component-choice-text">Very dissatisfied</div>
-          </div>
+            );
+          })}
+
           <div>
-            {/* <div
-              // className="work-button-wrapper"
-              style={{
-                display: `${isDisplay}`,
-                justifyContent: "flex-end",
-                paddingTop: "16px",
-                marginBottom: "-16px",
-              }}
-            >
-              <div onClick={handleEdit} className="work-button edit-button">
-                <div className="edit-text">Edit</div>
-              </div>
-              <div className="work-button">
-                <div className="duplicate-text">Duplicate</div>
-              </div>
-              <div className="work-button">
-                <div className="delete-button-text">Delete</div>
-              </div>
-            </div> */}
+            <div></div>
             <ThreeButtons isDisplay={`${isDisplay}`} id={`${id}`} />
-            {/* </ThreeButtons> */}
           </div>
         </div>
       </div>

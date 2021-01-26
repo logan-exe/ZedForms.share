@@ -29,3 +29,10 @@ export const prevListSetter = (myList) => {
     payload: myList,
   };
 };
+
+export const finalListSetter = (myFinalList) => {
+  return {
+    type: "SET_FINAL_FORM",
+    payload: myFinalList,
+  };
+};

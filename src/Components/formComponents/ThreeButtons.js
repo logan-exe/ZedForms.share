@@ -4,20 +4,29 @@ import { useSelector, useDispatch } from "react-redux";
 import { formList } from "../../actions";
 import uuid from "react-uuid";
 import ComponentList from "../main/ComponentList";
+import MultipleChoiceModal from "./MultipleChoice/MultipleChoiceModal";
 
 function ThreeButtons({ id, isDisplay }) {
   const [curid, setCurid] = useState("");
   const [curisDisplay, setCurisDisplay] = useState("none");
   const [myList, setMyList] = useState([]);
   const myformList = useSelector((state) => state.formList);
+  const [lgShow, setLgShow] = useState(false);
+  const [type, setType] = useState("");
 
   const dispatch = useDispatch();
   useEffect(() => {
     setCurid(id);
     setCurisDisplay(isDisplay);
     setMyList(myformList);
+    var a = myformList.find((item) => item.id === id);
+    if (a) {
+      setType(a.compType);
+    }
   }, [id, isDisplay, myformList]);
+
   const handleEdit = (nowid) => {
+    setLgShow(!lgShow);
     console.log(nowid);
   };
   const handleDelete = (nowid) => {
@@ -72,6 +81,11 @@ function ThreeButtons({ id, isDisplay }) {
           </div>
         </div>
       </div>
+      {type === "Multiple choice" ? (
+        <MultipleChoiceModal lgShow={lgShow} setLgShow={setLgShow} id={id} />
+      ) : (
+        ""
+      )}
     </div>
   );
 }

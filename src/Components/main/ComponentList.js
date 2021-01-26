@@ -13,11 +13,30 @@ function ComponentList() {
   }, [myformList]);
 
   // const formLists = useSelector((state) => state.formList);
-  const handleFormClick = (compType) => {
+  const handleFormClick = (
+    compType,
+    inputList,
+    required,
+    curLabel,
+    curDesc
+  ) => {
     const id = nextId();
     console.log(id);
     setCompList([...myformList, { id: id, compType: compType }]);
-    dispatch(formList([...myformList, { id: id, compType: compType }]));
+    dispatch(
+      formList([
+        ...myformList,
+        {
+          id: id,
+          compType: compType,
+          label: curLabel,
+          inputs: inputList,
+          constraints: [],
+          isRequired: required,
+          description: curDesc,
+        },
+      ])
+    );
 
     console.log({ id: id, compType: compType });
   };
@@ -26,7 +45,15 @@ function ComponentList() {
       <div className="component-wrapper">
         <div
           className="component-container"
-          onClick={() => handleFormClick("Multiple choice")}
+          onClick={() =>
+            handleFormClick(
+              "Multiple choice",
+              [{ option: "Very Satis" }, { option: "not satis" }],
+              false,
+              "label",
+              "description"
+            )
+          }
         >
           <div className="component-icon">
             <svg

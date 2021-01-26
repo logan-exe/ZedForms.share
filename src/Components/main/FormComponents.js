@@ -88,7 +88,7 @@ function FormComponents() {
     );
   };
   $("button").on("click", function () {
-    alert("hello world");
+    // alert("hello world");
   });
   $(function () {
     $("#sortable").sortable({
