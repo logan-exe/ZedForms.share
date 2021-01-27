@@ -22,7 +22,7 @@ import OpinionScale from "../formComponents/OpinionScale/OpinioneScale";
 import Payment from "../formComponents/Payment/Payment";
 import PictureChoice from "../formComponents/PictureChoice/PictureChoice";
 import Rank from "../formComponents/Rank/Rank";
-import Rating from "../formComponents/Rating/Rating";
+import RatingComp from "../formComponents/Rating/RatingComp";
 import SectionBreak from "../formComponents/SectionBreak/SectionBreak";
 import YesorNo from "../formComponents/YesorNo/YesorNo";
 
@@ -48,22 +48,7 @@ function FormComponents() {
     console.log("total change", myformList);
   }, [myformList]);
 
-  // const check_changes = () => {
-  //   console.log("this is prev", prevList);
-  //   console.log("this is current", myList);
-  //   for (var i = 0; i < myList.length; i++) {
-  //     var d = myList[i].id;
-  //     var a = prevList.find((cur) => cur.id === d);
-
-  //     if (a === undefined) {
-  //       return false;
-  //     }
-  //   }
-  //   return true;
-  // };
-
   useEffect(() => {
-    // console.log(check_changes());
     if (myList.length > 1) {
       scrollToBottom();
     }
@@ -75,6 +60,7 @@ function FormComponents() {
       return item2 ? { ...item2 } : item;
     });
     console.log("this is new", newList);
+
     /// use the following sunction to set prev list.
     // dispatch(prevListSetter())
     dispatch(
@@ -130,7 +116,7 @@ function FormComponents() {
           if (item.compType === "Rating") {
             return (
               <div key={item.id} id={item.id}>
-                <Rating id={item.id} />
+                <RatingComp id={item.id} />
               </div>
             );
           }

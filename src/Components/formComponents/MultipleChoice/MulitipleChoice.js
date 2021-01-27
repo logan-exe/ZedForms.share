@@ -20,15 +20,14 @@ function MulitipleChoice({ id }) {
   useEffect(() => {
     console.log(myformList);
     var a = myformList.find((item) => item.id === id);
-    setLabel(a.label);
-    setDesc(a.description);
-    setIsRequired(a.isRequired);
-    setOptList(a.inputs);
+    console.log("this is a", a);
+    if (a) {
+      setLabel(a.label);
+      setDesc(a.description);
+      setIsRequired(a.isRequired);
+      setOptList(a.inputs);
+    }
   }, [myformList]);
-
-  // const handleMouseOver = () => {
-  //   console.log("hello world");
-  // };
   const handleEdit = () => {
     console.log("logged from multiple choice", id);
   };
@@ -47,18 +46,6 @@ function MulitipleChoice({ id }) {
           </div>
 
           <div className="radio-component-description">{`${desc}`}</div>
-          {/* <div className="radio-component-choice">
-            <div className="radio-icon">
-              <div className="radio-icon-svg w-embed">
-                <input
-                  type="checkbox"
-                  value="hello"
-                  checked={isRequired === "No"}
-                ></input>
-              </div>
-            </div>
-            <div className="radio-component-choice-text">Very satisfied</div>
-          </div> */}
           {optList.map((item) => {
             return (
               <div className="radio-component-choice">

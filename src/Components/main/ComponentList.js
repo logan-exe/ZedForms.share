@@ -8,17 +8,18 @@ function ComponentList() {
   const [compList, setCompList] = useState([]);
   const dispatch = useDispatch();
   const myformList = useSelector((state) => state.formList);
+
   useEffect(() => {
     setCompList(myformList);
   }, [myformList]);
 
-  // const formLists = useSelector((state) => state.formList);
   const handleFormClick = (
     compType,
     inputList,
     required,
     curLabel,
-    curDesc
+    curDesc,
+    constrains
   ) => {
     const id = nextId();
     console.log(id);
@@ -31,7 +32,7 @@ function ComponentList() {
           compType: compType,
           label: curLabel,
           inputs: inputList,
-          constraints: [],
+          constrains: constrains,
           isRequired: required,
           description: curDesc,
         },
@@ -48,10 +49,22 @@ function ComponentList() {
           onClick={() =>
             handleFormClick(
               "Multiple choice",
-              [{ option: "Very Satis" }, { option: "not satis" }],
+              [
+                { option: "Very Satisfied" },
+                { option: "Satisfied" },
+                { option: "Better" },
+                { option: "Good" },
+              ],
               false,
-              "label",
-              "description"
+              "This is label",
+              "This is description ",
+              [
+                { name: "randomize", value: false },
+                { name: "allow other option", value: false },
+                { name: "multiple answers", value: false },
+                { name: "none of the above", value: false },
+                { name: "stacks", value: false },
+              ]
             )
           }
         >
@@ -73,7 +86,21 @@ function ComponentList() {
         </div>
         <div
           className="component-container"
-          onClick={() => handleFormClick("Text")}
+          onClick={() =>
+            handleFormClick(
+              "Text",
+              [{ option: "text" }],
+              false,
+              "text label",
+              "text description",
+              [
+                { name: "multiple lines", value: true },
+                { name: "rows", value: "4" },
+                { name: "cols", value: "150" },
+                { name: "placeholder", value: "Start typing..." },
+              ]
+            )
+          }
         >
           <div className="component-icon">
             <svg
@@ -93,7 +120,16 @@ function ComponentList() {
         </div>
         <div
           className="component-container"
-          onClick={() => handleFormClick("Rating")}
+          onClick={() =>
+            handleFormClick(
+              "Rating",
+              [{ option: "10" }],
+              false,
+              "rating label",
+              "rating description",
+              [{ name: "emoji type", value: "star" }]
+            )
+          }
         >
           <div className="component-icon">
             <svg
@@ -133,7 +169,16 @@ function ComponentList() {
         </div>
         <div
           className="component-container"
-          onClick={() => handleFormClick("Email")}
+          onClick={() =>
+            handleFormClick(
+              "Email",
+              [{ option: "Email" }],
+              false,
+              "this is Email",
+              "this is description",
+              [{ name: "placeholder", value: "Enter your email.." }]
+            )
+          }
         >
           <div className="component-icon">
             <svg
@@ -273,7 +318,19 @@ function ComponentList() {
         </div>
         <div
           className="component-container"
-          onClick={() => handleFormClick("Number")}
+          onClick={() =>
+            handleFormClick(
+              "Number",
+              [{ option: "Number" }],
+              false,
+              "this is number",
+              "this is description",
+              [
+                { name: "placeholder", value: "this is number..." },
+                { name: "phone number", value: false },
+              ]
+            )
+          }
         >
           <div className="component-icon">
             <svg

@@ -1,21 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { formList } from "../../../actions";
-import uuid from "react-uuid";
 import { Modal, Button } from "react-bootstrap";
 import Switch from "@material-ui/core/Switch";
 import "./MultipleChoiceModal.css";
-import { withStyles } from "@material-ui/core/styles";
-import { purple } from "@material-ui/core/colors";
 
 function MultipleChoiceModal({ id, isDisplay, lgShow, setLgShow }) {
-  const [curid, setCurid] = useState("");
-  const [visible, setVisible] = useState(false);
-  const [curisDisplay, setCurisDisplay] = useState("none");
-  const [myList, setMyList] = useState([]);
   const myformList = useSelector((state) => state.formList);
-  const [smShow, setSmShow] = useState(false);
-  //   const [lgShow, setLgShow] = useState(false);
+
   const [optList, setOptList] = useState([]);
   const [isRequired, setIsRequired] = useState(false);
   const [type, setType] = useState("");
@@ -24,9 +16,6 @@ function MultipleChoiceModal({ id, isDisplay, lgShow, setLgShow }) {
   const [description, setDescription] = useState("");
   const dispatch = useDispatch();
   useEffect(() => {
-    setCurid(id);
-    setCurisDisplay(isDisplay);
-    setMyList(myformList);
     var a = myformList.find((item) => item.id === id);
     setType(a.compType);
 
@@ -43,20 +32,6 @@ function MultipleChoiceModal({ id, isDisplay, lgShow, setLgShow }) {
     console.log("renderes");
     setIsRequired(a.isRequired);
   }, [id, isDisplay, myformList, optList, lgShow]);
-
-  const PurpleSwitch = withStyles({
-    switchBase: {
-      color: purple[300],
-      "&$checked": {
-        color: purple[500],
-      },
-      "&$checked + $track": {
-        backgroundColor: purple[500],
-      },
-    },
-    checked: {},
-    track: {},
-  })(Switch);
 
   const addNewChoice = () => {
     setOptList([...optList, { option: "newone" }]);

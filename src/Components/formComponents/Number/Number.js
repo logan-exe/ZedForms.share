@@ -1,8 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ThreeButtons from "../ThreeButtons";
+import { formList, prevListSetter } from "../../../actions";
+import { useSelector, useDispatch } from "react-redux";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 function Number({ id }) {
   const [isDisplay, setIsDisplay] = useState("none");
+  const [label, setLabel] = useState("");
+  const [desc, setDesc] = useState("");
+
+  const [isRequired, setIsRequired] = useState("No");
+  const [constrains, setConstrains] = useState([]);
+  const [phone, setPhone] = useState("");
+
+  const [type, setType] = useState("text");
+  const [placeholder, setPlaceholder] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState(true);
+
+  const [optList, setOptList] = useState([]);
+  const myformList = useSelector((state) => state.formList);
+
+  useEffect(() => {
+    var a = myformList.find((item) => item.id === id);
+    console.log("this is a", a);
+
+    if (a) {
+      setLabel(a.label);
+      setDesc(a.description);
+      setIsRequired(a.isRequired);
+      setOptList(a.inputs);
+      setConstrains(a.constrains);
+
+      var b = a.constrains.find((item) => item.name === "placeholder");
+      var c = a.constrains.find((item) => item.name === "phone number");
+      // setIsMultiple(c.value);
+      setPhoneNumber(c.value);
+
+      setPlaceholder(b.value);
+    }
+  }, [myformList]);
   return (
     <div className="work-area">
       <div
@@ -11,18 +48,23 @@ function Number({ id }) {
         onMouseLeave={() => setIsDisplay("none")}
       >
         <div className="work-title">
-          Kindly enter your Phone Number, so that we can get back to you.
+          {label}{" "}
+          {isRequired ? <span style={{ color: "#ff0000" }}>*</span> : ""}
         </div>
-        <div className="work-description">
-          Please make sure that it’s a professional one.
-        </div>
+        <div className="work-description">{desc}</div>
         <div className="number-wrapper">
           <div className="number-button">
-            <input
-              type="number"
-              name=""
-              placeholder="Enter your number"
-            ></input>
+            {phoneNumber ? (
+              <div>
+                <PhoneInput
+                  country={"us"}
+                  value={phone}
+                  onChange={(phone) => setPhone(phone)}
+                />
+              </div>
+            ) : (
+              <input type="number" name="" placeholder={placeholder}></input>
+            )}
           </div>
         </div>
         <ThreeButtons isDisplay={`${isDisplay}`} id={`${id}`} />
