@@ -1,14 +1,72 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../style/formTitle.css";
 import { Modal, Button } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { Spin } from "antd";
+import { resListSetter } from "../../actions";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import uuid from "react-uuid";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { Checkmark } from "react-checkmark";
 
 function FormTitle() {
   const [title, setTitle] = useState("Customer Success Questionnaire");
   const [curTitle, setCurTitle] = useState(title);
   const [show, setShow] = useState(false);
-
+  const [isSpin, setIspin] = useState(false);
+  const [publish, setPublish] = useState(false);
+  const [link, setLink] = useState("");
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [formid, setFormid] = useState("");
+  const [isCopied, setIsCopied] = useState("");
+
+  const [clip, setClip] = useState("");
+
+  const dispatch = useDispatch();
+  const myformList = useSelector((state) => state.formList);
+  const resList = useSelector((state) => state.resList);
+  useEffect(() => {
+    console.log("this is reslist", resList);
+  }, [resList]);
+
+  const publishForm = (e) => {
+    e.preventDefault();
+
+    setPublish((prev) => !prev);
+    setIspin((prev) => !prev);
+    var final_list = myformList;
+    final_list.splice(0, 0, {
+      id: "head1234",
+      compType: "header",
+      inputs: [{ option: "header" }],
+      is_required: true,
+      label: "header",
+      description: "header",
+      constrains: [{}],
+    });
+    console.log("haha", uuid());
+    var now_id = uuid();
+
+    axios({
+      method: "POST",
+      url: `http://localhost:3001/form/:${now_id}`,
+      data: {
+        formid: now_id,
+        user_id: "123456789",
+        user_name: "arunlogan",
+        form_fields: final_list,
+      },
+    })
+      .then((res) => {
+        setIspin((prev) => !prev);
+        console.log("success", res.data);
+        setLink(`http://localhost:3000/forms/:${res.data.formid}`);
+        dispatch(resListSetter(res.data));
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <div>
       <div className="form-title-wrapper">
@@ -65,13 +123,36 @@ function FormTitle() {
           <div className="preview-button">
             <div className="preview-button-text">Preview</div>
           </div>
-          <div className="publish-button">
+          <div className="publish-button" onClick={(e) => publishForm(e)}>
             <div className="publish-button-text">Publish</div>
           </div>
         </div>
+
+        <Modal show={publish} onHide={() => setPublish(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>
+              {link === "" ? "Publishing.." : "succesfully published"}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div style={{ display: "flex" }}>
+              {isSpin ? <CircularProgress /> : <a href={`${link}`}>{link}</a>}
+              {isCopied ? <Checkmark size="24px" /> : ""}
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <CopyToClipboard text={link}>
+              <Button variant="secondary" onClick={() => setIsCopied(true)}>
+                Copy
+              </Button>
+            </CopyToClipboard>
+
+            <Button variant="primary" onClick={() => setPublish(false)}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
-      {/* {console.log("hello world")}
-      <h1>hello world how r u ????</h1> */}
     </div>
   );
 }

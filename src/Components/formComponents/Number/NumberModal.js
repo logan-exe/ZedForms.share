@@ -42,7 +42,11 @@ function NumberModal({ id, isDisplay, lgShow, setLgShow }) {
     setConstrains(a.constrains);
     setIsRequired(a.isRequired);
     var c = a.constrains.find((item) => item.name === "phone number");
-    setIsPhone(c.value);
+    if (c.value === "true") {
+      setIsPhone(c.value);
+    } else {
+      setIsPhone(false);
+    }
   }, [id, isDisplay, myformList, optList, lgShow]);
 
   const handleSwitchChange = (event) => {
@@ -80,7 +84,11 @@ function NumberModal({ id, isDisplay, lgShow, setLgShow }) {
         list[j].value = placeholder;
       }
       if (list[j].name === "phone number") {
-        list[j].value = isPhone;
+        if (isPhone) {
+          list[j].value = "true";
+        } else {
+          list[j].value = "false";
+        }
       }
     }
     update_list[index].constrains = [...list];

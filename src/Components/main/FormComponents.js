@@ -138,7 +138,7 @@ function FormComponents() {
           if (item.compType === "Yes or No") {
             return (
               <div key={item.id} id={item.id}>
-                <YesorNo />
+                <YesorNo id={item.id} />
               </div>
             );
           }

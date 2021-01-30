@@ -1,9 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./OpinionScale.css";
 import ThreeButtons from "../ThreeButtons";
+import { useSelector, useDispatch } from "react-redux";
 
 function OpinioneScale({ id }) {
   const [isDisplay, setIsDisplay] = useState("none");
+
+  const [label, setLabel] = useState("");
+  const [desc, setDesc] = useState("");
+
+  const [isRequired, setIsRequired] = useState("No");
+  const [constrains, setConstrains] = useState([]);
+
+  const [type, setType] = useState("text");
+  const [placeholder, setPlaceholder] = useState("");
+  const [isMultiple, setIsMultiple] = useState("true");
+
+  const [optList, setOptList] = useState([]);
+  const myformList = useSelector((state) => state.formList);
+  const [leftLabel, setLeftLabel] = useState("");
+  const [rightLabel, setRightLabel] = useState("");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    var a = myformList.find((item) => item.id === id);
+
+    if (a) {
+      setLabel(a.label);
+      setDesc(a.description);
+      setIsRequired(a.isRequired);
+      setOptList(a.inputs);
+      setConstrains(a.constrains);
+
+      setRightLabel(a.constrains[1].value);
+
+      setLeftLabel(a.constrains[0].value);
+    }
+  }, [myformList]);
   return (
     <div className="work-area">
       <div
@@ -12,11 +45,10 @@ function OpinioneScale({ id }) {
         onMouseLeave={() => setIsDisplay("none")}
       >
         <div className="work-title">
-          Please give us your feedback about our service.
+          {label}{" "}
+          {isRequired ? <span style={{ color: "#ff0000" }}>*</span> : ""}
         </div>
-        <div className="work-description">
-          Your feedback pushes us to work hard.
-        </div>
+        <div className="work-description">{desc}</div>
         <div className="opinion-items-wrapper">
           <div className="opinion-number-wrapper">
             <div className="opinion-item">
@@ -53,8 +85,8 @@ function OpinioneScale({ id }) {
             </div>
           </div>
           <div className="opinion-label-wrapper">
-            <div className="opinion-label-text">Least likely</div>
-            <div className="opinion-label-text">Most likely</div>
+            <div className="opinion-label-text">{leftLabel}</div>
+            <div className="opinion-label-text">{rightLabel}</div>
           </div>
         </div>
         <ThreeButtons isDisplay={`${isDisplay}`} id={`${id}`} />

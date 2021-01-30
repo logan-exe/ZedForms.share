@@ -14,7 +14,7 @@ function Text({ id }) {
 
   const [type, setType] = useState("text");
   const [placeholder, setPlaceholder] = useState("");
-  const [isMultiple, setIsMultiple] = useState(true);
+  const [isMultiple, setIsMultiple] = useState("true");
 
   const [optList, setOptList] = useState([]);
   const myformList = useSelector((state) => state.formList);
@@ -30,11 +30,9 @@ function Text({ id }) {
       setIsRequired(a.isRequired);
       setOptList(a.inputs);
       setConstrains(a.constrains);
-
       var b = a.constrains.find((item) => item.name === "placeholder");
       var c = a.constrains.find((item) => item.name === "multiple lines");
       setIsMultiple(c.value);
-
       setPlaceholder(b.value);
     }
   }, [myformList]);
@@ -54,7 +52,7 @@ function Text({ id }) {
           </div>
           <div className="textbox-description">{desc}</div>
           <div>
-            {isMultiple ? (
+            {isMultiple === "true" ? (
               <textarea
                 className="textbox-input"
                 type="textarea"

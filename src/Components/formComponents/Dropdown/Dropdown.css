@@ -1,0 +1,72 @@
+.modal-body-my {
+  height: 360px;
+  width: 700px;
+
+  border-radius: 0px;
+  overflow-y: auto;
+}
+.multiple-choice-settings {
+  border-radius: 0px;
+  padding-left: 24px;
+}
+.option-input {
+  width: 250px;
+}
+.switch-buttons {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 200px;
+  width: 440px;
+}
+.multiple-choice-modal {
+  display: flex;
+}
+.footer-buttons-modal {
+  margin-right: 8px;
+}
+.label-input {
+  width: 90%;
+  padding: 5px;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 5px;
+}
+.option-lists {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+.new-choice {
+  width: 90%;
+
+  background-color: #3232ac;
+  color: #fff;
+  border: none;
+  padding: 5px;
+}
+.new-choice:hover {
+  -webkit-box-shadow: 0 8px 6px -6px black;
+  -moz-box-shadow: 0 8px 6px -6px black;
+  box-shadow: 0 4px 3px -3px black;
+}
+.each-option {
+  display: flex;
+
+  margin-right: 10px;
+  margin-top: 8px;
+}
+.each-switch-button {
+  width: 180px;
+
+  display: flex;
+  justify-content: space-between;
+}
+.selection-dd {
+  width: 180px;
+  padding: 5px;
+  border: 1px solid lightgray;
+}

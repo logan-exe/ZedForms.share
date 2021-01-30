@@ -30,16 +30,15 @@ function ComponentList() {
         {
           id: id,
           compType: compType,
-          label: curLabel,
           inputs: inputList,
-          constrains: constrains,
           isRequired: required,
+          label: curLabel,
           description: curDesc,
+
+          constrains: constrains,
         },
       ])
     );
-
-    console.log({ id: id, compType: compType });
   };
   return (
     <div>
@@ -59,11 +58,11 @@ function ComponentList() {
               "This is label",
               "This is description ",
               [
-                { name: "randomize", value: false },
-                { name: "allow other option", value: false },
-                { name: "multiple answers", value: false },
-                { name: "none of the above", value: false },
-                { name: "stacks", value: false },
+                { name: "randomize", value: "false" },
+                { name: "allow other option", value: "false" },
+                { name: "multiple answers", value: "false" },
+                { name: "none of the above", value: "false" },
+                { name: "stacks", value: "false" },
               ]
             )
           }
@@ -94,7 +93,7 @@ function ComponentList() {
               "text label",
               "text description",
               [
-                { name: "multiple lines", value: true },
+                { name: "multiple lines", value: "false" },
                 { name: "rows", value: "4" },
                 { name: "cols", value: "150" },
                 { name: "placeholder", value: "Start typing..." },
@@ -198,7 +197,16 @@ function ComponentList() {
         </div>
         <div
           className="component-container"
-          onClick={() => handleFormClick("Yes or No")}
+          onClick={() =>
+            handleFormClick(
+              "Yes or No",
+              [{ option: "yesorno" }],
+              false,
+              "Choose yes or no",
+              "this is yes or no",
+              [{}]
+            )
+          }
         >
           <div className="component-icon">
             <svg
@@ -218,7 +226,19 @@ function ComponentList() {
         </div>
         <div
           className="component-container"
-          onClick={() => handleFormClick("Opinion Scale")}
+          onClick={() =>
+            handleFormClick(
+              "Opinion Scale",
+              [{ option: "opinion" }],
+              false,
+              "this is opinion",
+              "opinion desc",
+              [
+                { name: "leftLabel", value: "Less Likely" },
+                { name: "rightLabel", value: "Most Likely" },
+              ]
+            )
+          }
         >
           <div className="component-icon">
             <svg
@@ -327,7 +347,7 @@ function ComponentList() {
               "this is description",
               [
                 { name: "placeholder", value: "this is number..." },
-                { name: "phone number", value: false },
+                { name: "phone number", value: "false" },
               ]
             )
           }
@@ -370,7 +390,20 @@ function ComponentList() {
         </div>
         <div
           className="component-container"
-          onClick={() => handleFormClick("Dropdown")}
+          onClick={() =>
+            handleFormClick(
+              "Dropdown",
+              [
+                { option: "Default value" },
+                { option: "option1" },
+                { option: "option2" },
+              ],
+              false,
+              "this is dd",
+              "this is desc",
+              [{}]
+            )
+          }
         >
           <div className="component-icon">
             <svg
@@ -390,7 +423,16 @@ function ComponentList() {
         </div>
         <div
           className="component-container"
-          onClick={() => handleFormClick("Calendar")}
+          onClick={() =>
+            handleFormClick(
+              "Calendar",
+              [{ option: "date-time" }],
+              false,
+              "Calendar label",
+              "Calendar description",
+              [{}]
+            )
+          }
         >
           <div className="component-icon">
             <svg
@@ -410,7 +452,16 @@ function ComponentList() {
         </div>
         <div
           className="component-container"
-          onClick={() => handleFormClick("Link")}
+          onClick={() =>
+            handleFormClick(
+              "Link",
+              [{ option: "link" }],
+              false,
+              "link label",
+              "link description",
+              [{ name: "placeholder", value: "this is link placeholder" }]
+            )
+          }
         >
           <div className="component-icon">
             <svg
@@ -450,7 +501,16 @@ function ComponentList() {
         </div>
         <div
           className="component-container"
-          onClick={() => handleFormClick("Attachment")}
+          onClick={() =>
+            handleFormClick(
+              "Attachment",
+              [{}],
+              false,
+              "attach label",
+              "attach des",
+              [{}]
+            )
+          }
         >
           <div className="component-icon">
             <svg

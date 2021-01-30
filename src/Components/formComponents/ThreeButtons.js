@@ -10,6 +10,12 @@ import EmailModal from "./Email/EmailModal";
 import NumberModal from "./Number/NumberModal";
 import _ from "lodash";
 import RatingModal from "./Rating/RatingModal";
+import LinkModal from "./Link/LinkModal";
+import DropDownModal from "./Dropdown/DropdownModal";
+import CalendarModal from "./Calendar/CalendarModal";
+import YesorNoModal from "./YesorNo/YesorNoModal";
+import OpinionScaleModal from "./OpinionScale/OpinionScaleModal";
+import AttachmentModal from "./Attachment/AttachmentModal";
 
 function ThreeButtons({ id, isDisplay }) {
   const [curid, setCurid] = useState("");
@@ -35,25 +41,35 @@ function ThreeButtons({ id, isDisplay }) {
     console.log(nowid);
   };
   const handleDelete = (nowid) => {
+    var k = myList.find((item) => item.id === nowid);
+    console.log("this is k", k);
+    if (k.compType === "Header" || k.compType === "Footer") {
+      alert("this section cant be deleted");
+      return;
+    }
     var newList = myformList.filter((item) => item.id !== nowid);
     dispatch(formList(newList));
   };
 
   const handleDuplicate = (nowid) => {
     var k = myList.find((item) => item.id === nowid);
+    if (k.compType === "Header" || k.compType === "Footer") {
+      alert("this section cant be duplicated");
+      return;
+    }
     var dupEle = _.cloneDeep(k);
     var new_id = uuid() + dupEle.id;
     var myindex = myList.findIndex((item) => item.id === nowid);
 
     var myobj = _.cloneDeep(dupEle.constrains);
 
-    console.log("bug is here", myobj[0] === dupEle.constrains[0]);
+    // console.log("bug is here", myobj[0] === dupEle.constrains[0]);
     var new_obj = {
       id: `${new_id}`,
       compType: `${dupEle.compType}`,
       label: `${dupEle.label}`,
       description: `${dupEle.description}`,
-      inputs: [...dupEle.inputs],
+      inputs: dupEle.inputs,
       isRequired: dupEle.isRequired,
       constrains: myobj,
     };
@@ -108,6 +124,23 @@ function ThreeButtons({ id, isDisplay }) {
         <NumberModal lgShow={lgShow} setLgShow={setLgShow} id={id} />
       ) : type === "Rating" ? (
         <RatingModal lgShow={lgShow} setLgShow={setLgShow} id={id} />
+      ) : type === "Link" ? (
+        <LinkModal lgShow={lgShow} setLgShow={setLgShow} id={id} />
+      ) : type === "Dropdown" ? (
+        <DropDownModal lgShow={lgShow} setLgShow={setLgShow} id={id} />
+      ) : type === "Calendar" ? (
+        <CalendarModal
+          DropDownModal
+          lgShow={lgShow}
+          setLgShow={setLgShow}
+          id={id}
+        />
+      ) : type === "Yes or No" ? (
+        <YesorNoModal lgShow={lgShow} setLgShow={setLgShow} id={id} />
+      ) : type === "Opinion Scale" ? (
+        <OpinionScaleModal lgShow={lgShow} setLgShow={setLgShow} id={id} />
+      ) : type == "Attachment" ? (
+        <AttachmentModal lgShow={lgShow} setLgShow={setLgShow} id={id} />
       ) : (
         ""
       )}

@@ -29,11 +29,7 @@ function Link({ id }) {
       setIsRequired(a.isRequired);
       setOptList(a.inputs);
       setConstrains(a.constrains);
-
       var b = a.constrains.find((item) => item.name === "placeholder");
-      var c = a.constrains.find((item) => item.name === "multiple lines");
-      setIsMultiple(c.value);
-
       setPlaceholder(b.value);
     }
   }, [myformList]);
@@ -49,9 +45,7 @@ function Link({ id }) {
           {label}{" "}
           {isRequired ? <span style={{ color: "#ff0000" }}>*</span> : ""}
         </div>
-        <div className="work-description">
-          Please make sure that it’s a professional one.
-        </div>
+        <div className="textbox-description">{desc}</div>
         <div className="mail-input-wrapper w-form">
           <form
             id="wf-form-Mail-input"
@@ -65,7 +59,7 @@ function Link({ id }) {
               maxLength={256}
               name="Email-Input-Component"
               data-name="Email Input Component"
-              placeholder="Enter your website"
+              placeholder={placeholder}
               id="Email-Input-Component"
             />
           </form>

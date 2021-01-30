@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Footer.css";
+import ThreeButtons from "../ThreeButtons";
 
-function Footer() {
+function Footer({ id }) {
+  const [isDisplay, setIsDisplay] = useState("none");
   return (
     <div className="work-area">
-      <div className="work-component work-component-footer">
+      <div
+        className="work-component work-component-footer"
+        onMouseEnter={() => setIsDisplay("flex")}
+        onMouseLeave={() => setIsDisplay("none")}
+      >
         <div className="footer-button-wrapper">
           <div className="footer-button">
             <div className="footer-button-text">Submit</div>
@@ -63,7 +69,7 @@ function Footer() {
             See how it’s easy to <a href="/">create surveys with Zedforms</a>
           </div>
         </div>
-        {/* <ThreeButtons isDisplay={`${isDisplay}`} id={`${id}`} /> */}
+        <ThreeButtons isDisplay={`${isDisplay}`} id={`${id}`} />
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import "./app.css";
 import DragandDrop from "./Components/DragandDrop";
 import Dnd from "./Components/Dnd";
 import MySwitch from "./Components/Utils/MySwitch";
+import ResponseForm from "./Components/Response/ResponseForm";
 
 export default function App() {
   const counter = useSelector((state) => state.counter);
@@ -18,12 +19,12 @@ export default function App() {
   return (
     <Router>
       <div>
-        <Route exact path="/">
-          <Workspace></Workspace>
-        </Route>
-        <Route path="/test">
-          <MySwitch />
-        </Route>
+        <Switch>
+          <Route path="/" exact>
+            <Workspace></Workspace>
+          </Route>
+          <Route path="/forms/:id" component={ResponseForm} />
+        </Switch>
       </div>
     </Router>
   );

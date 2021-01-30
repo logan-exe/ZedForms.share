@@ -18,7 +18,7 @@ function TextModal({ id, isDisplay, lgShow, setLgShow }) {
 
   const [label, setLabel] = useState("");
   const [description, setDescription] = useState("");
-  const [isMultiple, setIsMultiple] = useState(true);
+  const [isMultiple, setIsMultiple] = useState("true");
   const dispatch = useDispatch();
   useEffect(() => {
     var a = myformList.find((item) => item.id === id);
@@ -45,9 +45,9 @@ function TextModal({ id, isDisplay, lgShow, setLgShow }) {
 
   const handleSelectChange = (e) => {
     if (e.target.value === "single line") {
-      setIsMultiple(false);
+      setIsMultiple("false");
     } else {
-      setIsMultiple(true);
+      setIsMultiple("true");
     }
   };
 
@@ -119,7 +119,7 @@ function TextModal({ id, isDisplay, lgShow, setLgShow }) {
                 />
               </div>
               <div>
-                {isMultiple ? (
+                {isMultiple === "true" ? (
                   <textarea
                     className="textbox-input"
                     style={{ width: "620px", resize: "none" }}
@@ -152,7 +152,9 @@ function TextModal({ id, isDisplay, lgShow, setLgShow }) {
                   <div>
                     <select
                       onChange={(e) => handleSelectChange(e)}
-                      value={isMultiple ? "multiple lines" : "single line"}
+                      value={
+                        isMultiple === "true" ? "multiple lines" : "single line"
+                      }
                     >
                       <option value="multiple lines">Multiple Lines</option>
                       <option value="single line">Single Line</option>

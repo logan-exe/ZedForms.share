@@ -16,7 +16,7 @@ function Number({ id }) {
 
   const [type, setType] = useState("text");
   const [placeholder, setPlaceholder] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState(true);
+  const [phoneNumber, setPhoneNumber] = useState("true");
 
   const [optList, setOptList] = useState([]);
   const myformList = useSelector((state) => state.formList);
@@ -54,7 +54,7 @@ function Number({ id }) {
         <div className="work-description">{desc}</div>
         <div className="number-wrapper">
           <div className="number-button">
-            {phoneNumber ? (
+            {phoneNumber === "true" ? (
               <div>
                 <PhoneInput
                   country={"us"}

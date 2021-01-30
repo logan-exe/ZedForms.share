@@ -1,9 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Attachment.css";
 import ThreeButtons from "../ThreeButtons";
+import { useSelector, useDispatch } from "react-redux";
 
 function Attachment({ id }) {
   const [isDisplay, setIsDisplay] = useState("none");
+  const [label, setLabel] = useState("");
+  const [desc, setDesc] = useState("");
+
+  const [isRequired, setIsRequired] = useState("No");
+  const [constrains, setConstrains] = useState([]);
+
+  const [type, setType] = useState("text");
+  const [placeholder, setPlaceholder] = useState("");
+  const [isMultiple, setIsMultiple] = useState("true");
+
+  const [optList, setOptList] = useState([]);
+  const myformList = useSelector((state) => state.formList);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    var a = myformList.find((item) => item.id === id);
+    console.log("this is a", a);
+
+    if (a) {
+      setLabel(a.label);
+      setDesc(a.description);
+      setIsRequired(a.isRequired);
+      setOptList(a.inputs);
+      setConstrains(a.constrains);
+      // var b = a.constrains.find((item) => item.name === "placeholder");
+      // var c = a.constrains.find((item) => item.name === "multiple lines");
+      // setIsMultiple(c.value);
+      // setPlaceholder(b.value);
+    }
+  }, [myformList]);
   return (
     <div className="work-area">
       <div
@@ -12,12 +43,10 @@ function Attachment({ id }) {
         onMouseLeave={() => setIsDisplay("none")}
       >
         <div className="attachment-title">
-          Please upload any one of your government authorized documents.
+          {label}
+          {isRequired ? <span style={{ color: "#ff0000" }}>*</span> : ""}
         </div>
-        <div className="attachment-description">
-          You’ll be disqualified from the list, if the picture quality isn’t
-          good.
-        </div>
+        <div className="attachment-description">{desc}</div>
         <div className="attachement-add-wrapper">
           <div className="add-attachment-icon-text-container">
             <div className="add-attachment-icon">
