@@ -36,3 +36,10 @@ export const resListSetter = (myFinalList) => {
     payload: myFinalList,
   };
 };
+
+export const userDetails = (details) => {
+  return {
+    type: "SET_USER_DETAILS",
+    payload: details,
+  };
+};

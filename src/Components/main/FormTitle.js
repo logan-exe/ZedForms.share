@@ -46,7 +46,6 @@ function FormTitle() {
       description: "header",
       constrains: [{}],
     });
-    console.log("haha", uuid());
     var now_id = uuid();
 
     axios({
@@ -65,7 +64,7 @@ function FormTitle() {
         setLink(`http://localhost:3000/forms/:${res.data.formid}`);
         dispatch(resListSetter(res.data));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log("this is error", err));
   };
   return (
     <div>

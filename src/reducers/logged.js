@@ -1,10 +1,13 @@
-const logReducer = (state=false,action) => {
-    switch(action.type){
-        case 'SIGN_IN':
-            return !state
-        default:
-            return state;
-    }
-}
+const logReducer = (
+  state = JSON.parse(localStorage.getItem("islogged")) ? true : false,
+  action
+) => {
+  switch (action.type) {
+    case "SIGN_IN":
+      return !state;
+    default:
+      return state;
+  }
+};
 
-export default logReducer
+export default logReducer;
