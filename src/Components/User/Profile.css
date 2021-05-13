@@ -1,0 +1,44 @@
+.profile-editor {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  align-items: center;
+  padding-top: 12px;
+  margin-bottom: 12px;
+}
+
+.editorIcon {
+  position: absolute;
+  padding-top: 120px;
+  padding-left: 170px;
+}
+.avatar-image:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.imageupload__div {
+  display: flex;
+  flex-direction: column;
+  max-width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.myprogress {
+  width: 100%;
+}
+
+@media (min-width: 700px) {
+  .imageupload__div {
+    display: flex;
+    flex-direction: column;
+    max-width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

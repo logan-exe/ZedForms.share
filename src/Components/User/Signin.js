@@ -18,7 +18,8 @@ import { auth } from "../../firebase";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { logged } from "../../actions";
+import { logged, setUserId, userPicture } from "../../actions";
+import uuid from "react-uuid";
 
 function Copyright() {
   return (
@@ -65,7 +66,7 @@ export default function SignIn() {
 
   const signInWithUsername = (e) => {
     e.preventDefault();
-    let myData = { email: curEmail, password: curPassword };
+    let myData = { email: curEmail, password: curPassword, sign_in: "Manual" };
     axios({
       method: "POST",
       url: "http://localhost:3001/login/user",
@@ -77,16 +78,21 @@ export default function SignIn() {
           JSON.stringify({
             userId: res.data.userId,
             token: res.data.token,
+            picture: res.data.picture,
           })
         );
         localStorage.setItem("islogged", true);
         dispatch(logged());
+        dispatch(setUserId(res.data.userId));
+        dispatch(userPicture(res.data.picture));
         history.push({
-          pathname: "/username/dashboard",
+          pathname: `/user/${res.data.userId}/dashboard`,
           state: { detail: res.data },
         });
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>
+        alert("Password Does not exists, Reset or continue with google.")
+      );
   };
 
   const googleSignIn = (e) => {
@@ -96,44 +102,79 @@ export default function SignIn() {
       .signInWithPopup(provider)
       .then((res) => {
         var a = res.additionalUserInfo.profile;
+
         console.log(res.additionalUserInfo.profile, a.name, a.picture, a.email);
         setUserName(a.name);
         setPic(a.picture);
         setEmail(a.email);
         axios({
           method: "GET",
-          url: `http://localhost:3001/users?email=${a.email}`,
+          url: `http://localhost:3001/isuser?email=${a.email}`,
         })
           .then((res) => {
-            if (res.data.length !== 0) {
-              localStorage.setItem(
-                "userData",
-                JSON.stringify({
-                  userId: res.data.userId,
-                  token: res.data.token,
-                })
-              );
-              history.push({
-                pathname: "/username/dashboard",
-                state: { detail: res.data },
-              });
-            } else {
+            console.log("this is res", res);
+            console.log(res.data, "this is response data");
+            if (res.data === "success") {
               axios({
                 method: "POST",
-                url: "http://localhost:3001/api/users",
+                url: "http://localhost:3001/login/user",
                 data: {
-                  user_id: "9990000999",
-                  name: a.name,
                   email: a.email,
-                  password: "",
-                  picture: a.picture,
+                  google_password: a.id + "front_secret_code",
+                  sign_in: "Google",
                 },
               })
                 .then((res) => {
-                  // history.push({
-                  //   pathname: "username/dashboard",
-                  //   state: { details: res.data },
-                  // });
+                  localStorage.setItem(
+                    "userData",
+                    JSON.stringify({
+                      userId: res.data.userId,
+                      token: res.data.token,
+                      picture: res.data.picture,
+                    })
+                  );
+                  localStorage.setItem("islogged", true);
+                  dispatch(logged());
+                  dispatch(setUserId(res.data.userId));
+                  dispatch(userPicture(res.data.picture));
+                  history.push({
+                    pathname: `/user/${res.data.userId}/dashboard`,
+                    state: { detail: res.data },
+                  });
+                })
+                .catch((err) => console.log(err));
+            } else {
+              let myData = {
+                name: a.name,
+                email: a.email,
+                google_password: a.id + "front_secret_code",
+                picture: a.picture,
+                sign_in: "Google",
+                password: "",
+              };
+              axios({
+                method: "POST",
+                url: "http://localhost:3001/api/users",
+                data: myData,
+              })
+                .then((res) => {
+                  localStorage.setItem(
+                    "userData",
+                    JSON.stringify({
+                      userId: res.data.userId,
+                      token: res.data.token,
+                      picture: res.data.picture,
+                    })
+                  );
+                  localStorage.setItem("islogged", true);
+
+                  dispatch(logged());
+                  dispatch(setUserId(res.data.userId));
+                  dispatch(userPicture(res.data.picture));
+                  history.push({
+                    pathname: `user/${res.data.userId}/dashboard`,
+                    state: { detail: res.data },
+                  });
                 })
                 .catch((err) => console.log(err));
             }
@@ -198,16 +239,16 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            style={{ marginTop: "-10px" }}
+            style={{ marginTop: "-10px", height: "40px" }}
             onClick={(e) => {
               googleSignIn(e);
             }}
           >
-            <div style={{ display: "flex" }}>
+            <div style={{ display: "flex", marginTop: "10px" }}>
               <img
-                src="https://ipullrank.com/wp-content/uploads/2020/07/png-transparent-google-logo-g-suite-google-guava-google-plus-company-text-logo.png"
+                src="https://e7.pngegg.com/pngimages/760/624/png-clipart-google-logo-google-search-advertising-google-company-text.png"
                 alt="no img"
-                style={{ width: "25px", height: "25px" }}
+                style={{ width: "25px", height: "25px", marginRight: "10px" }}
               />
               <p>Continue with google</p>
             </div>
@@ -226,13 +267,13 @@ export default function SignIn() {
           </Grid>
         </form>
       </div>
-      {pic === "" ? (
+      {/* {pic === "" ? (
         ""
       ) : (
         <div>
           <img src={pic} alt="noiimg"></img>
         </div>
-      )}
+      )} */}
 
       <Box mt={8}>
         <Copyright />

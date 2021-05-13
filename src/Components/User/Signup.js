@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,6 +13,13 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import GoogleButton from "react-google-button";
+import axios from "axios";
+import { logged, setUserId, userPicture } from "../../actions";
+import firebase from "firebase";
+import { auth } from "../../firebase";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import uuid from "react-uuid";
 
 function Copyright() {
   return (
@@ -49,6 +56,50 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
+  const [curPass, setCurPass] = useState("");
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [curEmail, setCurEmail] = useState("");
+  const dispatch = useDispatch();
+
+  const history = useHistory();
+
+  const signUp = (e) => {
+    e.preventDefault();
+
+    let myData = {
+      name: fname + " " + lname,
+      email: curEmail,
+      password: curPass,
+      picture:
+        "https://cdn.dribbble.com/users/2645532/screenshots/10865833/media/a8ce752ebaa96c73ee7b47ffab6069f2.jpg?compress=1&resize=1600x1200",
+      sign_in: "Manual",
+    };
+    axios({
+      method: "POST",
+      url: "http://localhost:3001/api/users",
+      data: myData,
+    })
+      .then((res) => {
+        localStorage.setItem(
+          "userData",
+          JSON.stringify({
+            userId: res.data.userId,
+            token: res.data.token,
+            picture: res.data.picture,
+          })
+        );
+        localStorage.setItem("islogged", true);
+        dispatch(logged());
+        dispatch(setUserId(res.data.userId));
+        dispatch(userPicture(res.data.picture));
+        history.push({
+          pathname: `user/${res.data.userId}/dashboard`,
+          state: { detail: res.data },
+        });
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -72,6 +123,7 @@ export default function SignUp() {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                onChange={(e) => setFname(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -83,6 +135,7 @@ export default function SignUp() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                onChange={(e) => setLname(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -94,6 +147,7 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={(e) => setCurEmail(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -106,6 +160,7 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={(e) => setCurPass(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -121,6 +176,7 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={(e) => signUp(e)}
           >
             Sign Up
           </Button>
@@ -130,15 +186,15 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            style={{ marginTop: "-10px" }}
+            style={{ marginTop: "-10px", height: "40px" }}
           >
             <div style={{ display: "flex" }}>
               <img
                 src="https://ipullrank.com/wp-content/uploads/2020/07/png-transparent-google-logo-g-suite-google-guava-google-plus-company-text-logo.png"
                 alt="no img"
-                style={{ width: "25px", height: "25px" }}
+                style={{ width: "25px", height: "25px", marginRight: "10px" }}
               />
-              <p>Continue with google</p>
+              Continue with google
             </div>
           </Button>
           <Grid container justify="flex-end">

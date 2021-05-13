@@ -1,0 +1,21 @@
+.imageupload__div {
+  display: flex;
+  flex-direction: column;
+  max-width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.myprogress {
+  width: 100%;
+}
+
+@media (min-width: 700px) {
+  .imageupload__div {
+    display: flex;
+    flex-direction: column;
+    max-width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

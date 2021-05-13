@@ -1,11 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../style/NavBar.css";
+import Avatar from "@material-ui/core/Avatar";
+import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 
 function Navbar() {
+  const id = useSelector((state) => state.userId);
+  // const [picture, setPicture] = useState("");
+  const history = useHistory();
+  const picture = useSelector((state) => state.userPicture);
+
+  useEffect(() => {
+    // let token = JSON.parse(localStorage.getItem("userData")).token;
+    // console.log("this is token", token);
+    // axios({
+    //   method: "POST",
+    //   url: "http://localhost:3001/userinfo",
+    //   data: { user_id: id },
+    //   headers: {
+    //     Authorization: "bearer " + token,
+    //   },
+    // })
+    //   .then((res) => {
+    //     console.log(res.data, "this is res");
+    //     setPicture(res.data.picture);
+    //   })
+    //   .catch((err) => console.log(err));
+  }, [picture]);
+
+  const handleAvatarClick = () => {
+    history.push(`/user/${id}/profile`);
+  };
   return (
     <div className="Nav-Container">
       <div className="nav-wrapper">
-        <div className="logo w-embed">
+        <div
+          className="logo w-embed"
+          onClick={() => history.push(`/user/${id}/dashboard`)}
+        >
           <svg
             width={157}
             height={40}
@@ -116,7 +149,12 @@ function Navbar() {
               />
             </svg>
           </div>
-          <div className="avatar" />
+          <Avatar
+            style={{ cursor: "pointer" }}
+            onClick={handleAvatarClick}
+            alt="Remy Sharp"
+            src={picture}
+          />
         </div>
       </div>
     </div>

@@ -7,6 +7,8 @@ import FormDetails from "./FormList";
 import preFormDetails from "./prevList";
 import resList from "./ResponseList";
 import userDetails from "./UserDetails";
+import userId from "./UserId";
+import userPicture from "./UserPicture";
 
 const allReducers = combineReducers({
   counter: counterReducer,
@@ -15,6 +17,8 @@ const allReducers = combineReducers({
   prevList: preFormDetails,
   resList: resList,
   userDetails: userDetails,
+  userId: userId,
+  userPicture: userPicture,
 });
 
 export default allReducers;

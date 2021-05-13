@@ -34,7 +34,6 @@ function ComponentList() {
           isRequired: required,
           label: curLabel,
           description: curDesc,
-
           constrains: constrains,
         },
       ])

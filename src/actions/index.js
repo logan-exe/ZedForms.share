@@ -16,6 +16,12 @@ export const logged = () => {
   };
 };
 
+export const setUserId = (id) => {
+  return {
+    type: "SET_USER_ID",
+    payload: id,
+  };
+};
 export const formList = (compList) => {
   return {
     type: "SET_CURRENT_FORM",
@@ -41,5 +47,12 @@ export const userDetails = (details) => {
   return {
     type: "SET_USER_DETAILS",
     payload: details,
+  };
+};
+
+export const userPicture = (pic) => {
+  return {
+    type: "SET_USER_PICTURE",
+    payload: pic,
   };
 };
